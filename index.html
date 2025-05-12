@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #1e293b;
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background-color: hsl(217, 19%, 24%);
+      border-radius: 10px;
+      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      position: relative;
+      border: 1px solid #2e3a4d;
+    }
+
+    .advice-id {
+      color: #4ade80;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .quote {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #e2e8f0;
+    }
+
+    .divider {
+      margin: 20px auto;
+    }
+
+    .divider img {
+      width: 360px;
+    }
+
+    .spin {
+      background-color: #4ade80;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    .spin img {
+      width: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="advice-id" id="advice-id">ADVICE #</div>
+    <div class="quote" id="advice-text">Loading...</div>
+    <div class="divider"><img src="images/pattern-divider-desktop.svg" alt=""></div>
+    <div class="spin" onclick="getAdvice()">
+      <img src="images/icon-dice.svg" alt="">
+    </div>
+  </div>
+<script>
+ function getAdvice() {
+  fetch('https://api.adviceslip.com/advice')
+    .then(function(res) {
+      return res.json();
+    })
+    .then(function(data) {
+      document.getElementById('advice-id').innerText = 'ADVICE #' + data.slip.id;
+      document.getElementById('advice-text').innerText = '"' + data.slip.advice + '"';
+    });
+}
+
+getAdvice();
+</script>
+
+</body>
+</html>
